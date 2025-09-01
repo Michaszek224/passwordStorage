@@ -70,14 +70,16 @@ func homeHandlerGet(ctx *gin.Context) {
 	ctx.Redirect(http.StatusSeeOther, "/vault")
 }
 
-func authRequired(ctx *gin.Context) {
-	session := sessions.Default(ctx)
-	user := session.Get("user")
+func authRequired() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		session := sessions.Default(ctx)
+		user := session.Get("user")
 
-	if user == nil {
-		ctx.Redirect(http.StatusSeeOther, "/login")
-		ctx.Abort()
-		return
+		if user == nil {
+			ctx.Redirect(http.StatusSeeOther, "/login")
+			ctx.Abort()
+			return
+		}
+		ctx.Next()
 	}
-	ctx.Next()
 }
