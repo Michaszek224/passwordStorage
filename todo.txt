@@ -1,6 +1,6 @@
 change password to hash -> done
-add authenication with gin -> kinda/ in progress
+add authenication with gin -> done
+add sessions to -> done
 add another db table with logins and password for each user
 add encryption for passwords
-add sessions to 
 use https instead of http
