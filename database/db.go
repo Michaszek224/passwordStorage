@@ -8,7 +8,7 @@ import (
 )
 
 func DbInit() (*sql.DB, error) {
-	db, err := sql.Open("sqlite3", "./myDb/database.db")
+	db, err := sql.Open("sqlite3", "./data/database.db")
 	if err != nil {
 		log.Fatalf("Error opening DB: %v", err)
 	}
@@ -16,7 +16,7 @@ func DbInit() (*sql.DB, error) {
 	_, err = db.Exec(`
 		CREATE TABLE IF NOT EXISTS user(
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			nickname STRING NOT NULL,
+			username STRING NOT NULL,
 			password STRING NOT NULL
 			);
 		`)

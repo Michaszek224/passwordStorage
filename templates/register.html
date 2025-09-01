@@ -6,6 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Register temaplte</h1>
+
+    <h1>Register Template</h1>
+    {{ if .error }}
+    <p>{{ .error}}</p>
+    {{ end }}
+
+    <form action="/register" method="POST">
+        <input type="text" name="username" placeholder="Nickname"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <button type="submit">Submit Data</button>
+    </form>
+
+    <a href="/">Login to already existing account</a>
 </body>
 </html>

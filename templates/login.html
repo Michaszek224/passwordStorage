@@ -7,5 +7,23 @@
 </head>
 <body>
     <h1>Login temaplte</h1>
+
+    {{ if .error }}
+    <p>{{ .error}}</p>
+    {{ end }}
+
+   <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Nickname"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <button type="submit">login</button>
+    </form>
+
+    <a href="/register">Create New Account</a>
+
+    <ul>
+        {{range .users}}
+        <li>User: {{.Username}}| Password: {{.Password}}</li>
+        {{end}}
+    </ul>
 </body>
 </html>
