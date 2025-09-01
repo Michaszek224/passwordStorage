@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"passwordStorage/database"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -51,6 +52,32 @@ func loginHandlerPost(ctx *gin.Context, db *sql.DB) {
 		})
 		return
 	}
+	session := sessions.Default(ctx)
+	session.Set("user", username)
+	session.Save()
 
-	ctx.HTML(http.StatusOK, "vault.html", nil)
+	ctx.Redirect(http.StatusSeeOther, "/vault")
+}
+
+func homeHandlerGet(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+	user := session.Get("user")
+
+	if user == nil {
+		ctx.Redirect(http.StatusSeeOther, "/login")
+		return
+	}
+	ctx.Redirect(http.StatusSeeOther, "/vault")
+}
+
+func authRequired(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+	user := session.Get("user")
+
+	if user == nil {
+		ctx.Redirect(http.StatusSeeOther, "/login")
+		ctx.Abort()
+		return
+	}
+	ctx.Next()
 }
