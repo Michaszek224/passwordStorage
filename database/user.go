@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"log"
+	"strings"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -49,6 +50,9 @@ func InsertUser(username, password string, db *sql.DB) error {
 
 	_, err = db.Exec(`INSERT INTO user(username, password) VALUES (?,?)`, username, hashedPassword)
 	if err != nil {
+		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+			return errors.New("username already taken")
+		}
 		return err
 	}
 	return err
