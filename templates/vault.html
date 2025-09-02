@@ -8,5 +8,24 @@
 <body>
     <h1>Valut temaplte </h1>
     <h2>Hello {{.user}}</h2>
+
+    <h2>Add New Passport:</h2>
+    
+    {{ if .error }}
+    <p>{{ .error}}</p>
+    {{ end }}
+
+    <form action="/vault/addNewSite" method="post">
+        <input type="text" name="site" placeholder="site">
+        <input type="password" name="password" placeholder="passoword">
+        <input type="text" name="notes" placeholder="notes">
+        <button type="submit">Add New Site</button>
+    </form>
+    <h2>List of passports:</h2>
+    <ul>
+        {{range .siteData}}
+        <li>site: {{.Name}} | password: {{.Password}} | notes: {{.Notes}}</li>
+        {{end}}
+    </ul>
 </body>
 </html>

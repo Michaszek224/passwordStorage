@@ -43,7 +43,7 @@ func loginHandlerPost(ctx *gin.Context, db *sql.DB) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
 
-	err := database.AuthenicateUser(username, password, db)
+	user, err := database.AuthenicateUser(username, password, db)
 	users := database.GetUsers(db)
 	if err != nil {
 		ctx.HTML(http.StatusUnauthorized, "login.html", gin.H{
@@ -54,6 +54,7 @@ func loginHandlerPost(ctx *gin.Context, db *sql.DB) {
 	}
 	session := sessions.Default(ctx)
 	session.Set("user", username)
+	session.Set("userId", user.ID)
 	session.Save()
 
 	ctx.Redirect(http.StatusSeeOther, "/vault")

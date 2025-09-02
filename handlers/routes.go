@@ -43,11 +43,12 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 	router.GET("/register", registerHandlerGet)
 	router.GET("/login", func(ctx *gin.Context) { loginHandlerGet(ctx, db) })
 
-	//protected get
+	//protected rotues
 	authorized := router.Group("/vault")
 	authorized.Use(authRequired())
 	{
 		authorized.GET("/", func(ctx *gin.Context) { vaultHandler(ctx, db) })
+		authorized.POST("/addNewSite", func(ctx *gin.Context) { addNewSite(ctx, db) })
 	}
 
 	//unprotected post

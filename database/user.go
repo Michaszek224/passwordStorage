@@ -10,6 +10,7 @@ import (
 )
 
 type User struct {
+	ID       int
 	Username string
 	Password string
 }
@@ -55,27 +56,27 @@ func InsertUser(username, password string, db *sql.DB) error {
 		}
 		return err
 	}
-	return err
+	return nil
 }
 
-func AuthenicateUser(username, password string, db *sql.DB) error {
-	var hashedPassword string
+func AuthenicateUser(username, password string, db *sql.DB) (*User, error) {
+	var user User
 
 	err := db.QueryRow(
-		`SELECT password FROM user WHERE username = ?`, username).Scan(&hashedPassword)
+		`SELECT id, username, password FROM user WHERE username = ?`, username).Scan(&user.ID, &user.Username, &user.Password)
 	if err == sql.ErrNoRows {
-		return errors.New("User not found")
+		return nil, errors.New("User not found")
 	}
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	if !CheckHashPassowrd(password, hashedPassword) {
-		return errors.New("invalid password")
+	if !CheckHashPassowrd(password, user.Password) {
+		return nil, errors.New("invalid password")
 	}
 
-	return nil
+	return &user, nil
 }
 
 func hashPassword(password string) (string, error) {
