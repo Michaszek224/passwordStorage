@@ -1,6 +1,6 @@
 <form action="/vault/editSiteConfirm/{{.id}}" method="post">
     <input type="text" name="site" value="{{.site.Name}}">
-    <input type="text" name="password" value="{{.site.Password}}">
+    <input type="password" name="password" value="{{.site.Password}}">
     <input type="text" name="notes" value="{{.site.Notes}}">
     <button type="submit">Edit</button>
 </form>
