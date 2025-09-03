@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -78,9 +79,6 @@ func DeleteData(db *sql.DB, userId int, id string) error {
 }
 
 func EditData(db *sql.DB, userId int, id, password, site, notes string) error {
-	if site == "" || password == "" {
-		return errors.New("site name and password cannot be empty")
-	}
 	var exists bool
 	err := db.QueryRow("SELECT EXISTS(SELECT 1 FROM vault WHERE user_id = ? AND site = ? AND id != ?)", userId, site, id).Scan(&exists)
 	if err != nil {
@@ -91,11 +89,36 @@ func EditData(db *sql.DB, userId int, id, password, site, notes string) error {
 		return errors.New("Site already exisists")
 	}
 
-	passwordEcrypted, err := passwordEncrypt(password)
-	if err != nil {
-		return err
+	sqlSets := []string{}
+	args := []interface{}{}
+
+	if site != "" {
+		sqlSets = append(sqlSets, "site = ?")
+		args = append(args, site)
 	}
-	_, err = db.Exec("UPDATE vault SET site = ?, password = ?, notes = ? WHERE user_id = ? AND id = ?", site, passwordEcrypted, notes, userId, id)
+
+	if password != "" {
+		passwordEcrypted, err := passwordEncrypt(password)
+		if err != nil {
+			return err
+		}
+		sqlSets = append(sqlSets, "password = ?")
+		args = append(args, passwordEcrypted)
+	}
+
+	if notes != "" {
+		sqlSets = append(sqlSets, "notes = ?")
+		args = append(args, notes)
+	}
+
+	if len(sqlSets) == 0 {
+		return errors.New("no fields to update")
+	}
+
+	query := fmt.Sprintf("UPDATE vault SET %s WHERE user_id = ? AND id = ?", strings.Join(sqlSets, ", "))
+	args = append(args, userId, id)
+
+	_, err = db.Exec(query, args...)
 	if err != nil {
 		return err
 	}

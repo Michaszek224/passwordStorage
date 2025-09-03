@@ -12,10 +12,7 @@
 
     <h2>Add New Passport:</h2>
     
-    {{ if .error }}
-    <p>{{ .error}}</p>
-    {{ end }}
-
+    
     <form action="/vault/addSite" method="post">
         <input type="text" name="site" placeholder="site">
         <input type="password" name="password" placeholder="passoword">
@@ -32,5 +29,9 @@
         </li>
         {{end}}
     </ul>
+    
+    {{ if .error }}
+    <p>{{ .error}}</p>
+    {{ end }}
 </body>
 </html>
