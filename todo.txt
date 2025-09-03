@@ -6,8 +6,8 @@ add encryption for passwords -> change password encryption to be able to undo ->
 crud for sites informations -> done
 make some cool css -> done
 make passwords hidden by default->done
+copy password button-> done
 
-copy password button
 add login via github/google
 when editing autofill data 
 let use autogenerate password with options

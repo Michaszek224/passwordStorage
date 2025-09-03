@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Vault</title>
-    <link rel="stylesheet" href="/static/css/style.css"> 
+    <link rel="stylesheet" href="/static/css/style.css">
+    
 </head>
+
 <body>
+    <div id="toast"></div>
     <div id="vault-container">
         <div id="login-header">
             <h2>Your Vault</h2>
@@ -21,13 +25,13 @@
                 <button type="submit" class="add-button">Add New Site</button>
             </form>
         </div>
-
+        
         <div id="error-div">
             {{ if .error }}
             <p>{{ .error}}</p>
             {{ end }}
         </div>
-        
+
         <div class="site-list-section">
             <h3 class="list-title">Your Passwords:</h3>
             <ul class="site-list">
@@ -38,16 +42,48 @@
                         <p class="site-details">Notes: {{.Notes}}</p>
                     </span>
                     <div class="action-buttons">
-                        <button class="copy-password-button" hx-post="">Copy Passoword</button>
-                        <button class="edit-button" hx-post="/vault/editSite/{{.ID}}" hx-target="closest li">Edit</button>
-                        <button class="delete-button" hx-post="/vault/deleteSite/{{.ID}}" hx-target="closest li" hx-swap="delete">Delete</button>
-                    </div>
-                </li>
+                        <button class="copy-password-button" hx-post="/vault/copyPassword/{{.ID}}" hx-swap="none">Copy
+                            Passoword</button>
+                            <button class="edit-button" hx-post="/vault/editSite/{{.ID}}"
+                            hx-target="closest li">Edit</button>
+                            <button class="delete-button" hx-post="/vault/deleteSite/{{.ID}}" hx-target="closest li"
+                            hx-swap="delete">Delete</button>
+                        </div>
+                    </li>
                 {{end}}
             </ul>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"
+        integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.body.addEventListener("htmx:afterRequest", function (evt) {
+            const el = evt.detail.elt;       // the element that triggered the request
+            const response = evt.detail.xhr.responseText; // the server response
+
+            // check if this was a copy-password button
+            if (el.classList.contains("copy-password-button")) {
+                // copy the password to clipboard
+                navigator.clipboard.writeText(response)
+                    .then(() => showToast("Password copied!"))
+                    .catch(() => showToast("Failed to copy password"));
+            }
+        });
+
+        // toast function
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2000);
+        }
+    </script>
 </body>
+
 </html>

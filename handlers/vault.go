@@ -100,3 +100,16 @@ func deleteSite(ctx *gin.Context, db *sql.DB) {
 	}
 	ctx.Status(http.StatusOK)
 }
+
+func copyPassword(ctx *gin.Context, db *sql.DB) {
+	sessions := sessions.Default(ctx)
+	userId := sessions.Get("userId").(int)
+
+	siteId := ctx.Param("id")
+	password, err := database.GetPassword(db, userId, siteId)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+	ctx.String(http.StatusOK, password)
+}

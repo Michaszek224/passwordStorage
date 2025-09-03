@@ -53,6 +53,7 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 		authorized.POST("/editSite/:id", func(ctx *gin.Context) { editSite(ctx) })
 		authorized.POST("/editSiteConfirm/:id", func(ctx *gin.Context) { editSiteConfirm(ctx, db) })
 		authorized.POST("/deleteSite/:id", func(ctx *gin.Context) { deleteSite(ctx, db) })
+		authorized.POST("/copyPassword/:id", func(ctx *gin.Context) { copyPassword(ctx, db) })
 	}
 
 	//unprotected post

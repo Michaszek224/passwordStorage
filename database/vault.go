@@ -126,6 +126,21 @@ func EditData(db *sql.DB, userId int, id, password, site, notes string) error {
 	return nil
 }
 
+func GetPassword(db *sql.DB, userId int, siteId string) (string, error) {
+	var password string
+	err := db.QueryRow("SELECT password FROM vault WHERE user_Id = ? AND id = ?", userId, siteId).Scan(&password)
+	if err != nil {
+		return "", err
+	}
+
+	decryptedPassword, err := passwordDecrypt(password)
+	if err != nil {
+		return "", err
+	}
+
+	return decryptedPassword, nil
+}
+
 func passwordEncrypt(password string) (string, error) {
 	key := os.Getenv("VAULT_KEY")
 
