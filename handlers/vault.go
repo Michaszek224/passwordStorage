@@ -55,10 +55,20 @@ func addSite(ctx *gin.Context, db *sql.DB) {
 	ctx.Redirect(http.StatusSeeOther, "/vault")
 }
 
-func editSite(ctx *gin.Context) {
+func editSite(ctx *gin.Context, db *sql.DB) {
+	sessions := sessions.Default(ctx)
+	userId := sessions.Get("userId").(int)
+
 	id := ctx.Param("id")
+
+	site, err := database.GetSingleData(db, userId, id)
+	if err != nil {
+		log.Fatalf("Error getting data while editing: %v", err)
+	}
+
 	ctx.HTML(http.StatusOK, "edit.html", gin.H{
-		"id": id,
+		"id":   id,
+		"site": site,
 	})
 }
 
@@ -116,7 +126,7 @@ func copyPassword(ctx *gin.Context, db *sql.DB) {
 	ctx.String(http.StatusOK, password)
 }
 
-func generatePassword(ctx *gin.Context, db *sql.DB) {
+func generatePassword(ctx *gin.Context) {
 	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+"
 	passwordLength := 32
 	passwordBytes := make([]byte, passwordLength)

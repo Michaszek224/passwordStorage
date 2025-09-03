@@ -50,6 +50,22 @@ func GetSiteData(db *sql.DB, userId int) ([]Site, error) {
 	return sites, nil
 }
 
+func GetSingleData(db *sql.DB, userId int, siteId string) (Site, error) {
+	var newSite Site
+
+	err := db.QueryRow("SELECT site, password, notes FROM vault WHERE user_id = ? and id = ?", userId, siteId).Scan(&newSite.Name, &newSite.Password, &newSite.Notes)
+	if err != nil {
+		return newSite, err
+	}
+	newSite.Password, err = passwordDecrypt(newSite.Password)
+	if err != nil {
+		return newSite, err
+	}
+
+	return newSite, nil
+
+}
+
 func InsertSiteData(db *sql.DB, userId int, username, password, notes string) error {
 	if username == "" || password == "" {
 		return errors.New("site and password cannot be empty")

@@ -16,7 +16,7 @@ func storeOptionsConfig(store cookie.Store) {
 	store.Options(sessions.Options{
 		Path:     "/",
 		Domain:   "",
-		MaxAge:   60,
+		MaxAge:   180,
 		Secure:   false, // change in produciton
 		HttpOnly: true,
 		SameSite: http.SameSiteStrictMode,
@@ -50,11 +50,11 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 	{
 		authorized.GET("/", func(ctx *gin.Context) { vaultHandler(ctx, db) })
 		authorized.POST("/addSite", func(ctx *gin.Context) { addSite(ctx, db) })
-		authorized.POST("/editSite/:id", func(ctx *gin.Context) { editSite(ctx) })
+		authorized.POST("/editSite/:id", func(ctx *gin.Context) { editSite(ctx, db) })
 		authorized.POST("/editSiteConfirm/:id", func(ctx *gin.Context) { editSiteConfirm(ctx, db) })
 		authorized.POST("/deleteSite/:id", func(ctx *gin.Context) { deleteSite(ctx, db) })
 		authorized.POST("/copyPassword/:id", func(ctx *gin.Context) { copyPassword(ctx, db) })
-		authorized.GET("/generatePassword", func(ctx *gin.Context) { generatePassword(ctx, db) })
+		authorized.GET("/generatePassword", generatePassword)
 	}
 
 	//unprotected post
