@@ -33,6 +33,7 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
+	router.Static("/static", "./static")
 
 	store := cookie.NewStore([]byte(cookieSecret))
 	storeOptionsConfig(store)
@@ -41,7 +42,7 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 	//unprotected get
 	router.GET("/", homeHandlerGet)
 	router.GET("/register", registerHandlerGet)
-	router.GET("/login", func(ctx *gin.Context) { loginHandlerGet(ctx, db) })
+	router.GET("/login", loginHandlerGet)
 
 	//protected rotues
 	authorized := router.Group("/vault")

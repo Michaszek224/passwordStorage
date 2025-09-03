@@ -32,11 +32,9 @@ func registerHandlerPost(ctx *gin.Context, db *sql.DB) {
 	ctx.Redirect(http.StatusSeeOther, "/")
 }
 
-func loginHandlerGet(ctx *gin.Context, db *sql.DB) {
-	users := database.GetUsers(db)
-	ctx.HTML(http.StatusOK, "login.html", gin.H{
-		"users": users,
-	})
+func loginHandlerGet(ctx *gin.Context) {
+	// users := database.GetUsers(db)
+	ctx.HTML(http.StatusOK, "login.html", nil)
 }
 
 func loginHandlerPost(ctx *gin.Context, db *sql.DB) {
@@ -44,11 +42,9 @@ func loginHandlerPost(ctx *gin.Context, db *sql.DB) {
 	password := ctx.PostForm("password")
 
 	user, err := database.AuthenicateUser(username, password, db)
-	users := database.GetUsers(db)
 	if err != nil {
 		ctx.HTML(http.StatusUnauthorized, "login.html", gin.H{
 			"error": "Invalid username or password",
-			"users": users,
 		})
 		return
 	}

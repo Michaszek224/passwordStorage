@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Password Manager</title>
 </head>
 <body>
-    <h1>Login temaplte</h1>
-
     {{ if .error }}
     <p>{{ .error}}</p>
     {{ end }}
@@ -19,11 +18,5 @@
     </form>
 
     <a href="/register">Create New Account</a>
-
-    <ul>
-        {{range .users}}
-        <li>User: {{.Username}}| Password: {{.Password}}</li>
-        {{end}}
-    </ul>
 </body>
 </html>
