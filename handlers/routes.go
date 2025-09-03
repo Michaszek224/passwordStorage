@@ -50,7 +50,7 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 		authorized.GET("/", func(ctx *gin.Context) { vaultHandler(ctx, db) })
 		authorized.POST("/addSite", func(ctx *gin.Context) { addSite(ctx, db) })
 		authorized.POST("/editSite", func(ctx *gin.Context) { editSite(ctx, db) })
-		authorized.POST("/deleteSite", func(ctx *gin.Context) { deleteSite(ctx, db) })
+		authorized.POST("/deleteSite/:id", func(ctx *gin.Context) { deleteSite(ctx, db) })
 	}
 
 	//unprotected post

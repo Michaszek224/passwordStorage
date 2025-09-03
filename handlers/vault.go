@@ -54,9 +54,20 @@ func addSite(ctx *gin.Context, db *sql.DB) {
 }
 
 func editSite(ctx *gin.Context, db *sql.DB) {
+
 	ctx.Redirect(http.StatusSeeOther, "/vault")
 }
 
 func deleteSite(ctx *gin.Context, db *sql.DB) {
-	ctx.Redirect(http.StatusSeeOther, "/vault")
+	sessions := sessions.Default(ctx)
+	userId := sessions.Get("userId").(int)
+
+	siteId := ctx.Param("id")
+
+	err := database.DeleteData(db, userId, siteId)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		return
+	}
+	ctx.Status(http.StatusOK)
 }

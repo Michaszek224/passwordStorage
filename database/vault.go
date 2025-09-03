@@ -14,13 +14,14 @@ import (
 )
 
 type Site struct {
+	ID       int
 	Name     string
 	Password string
 	Notes    string
 }
 
 func GetSiteData(db *sql.DB, userId int) ([]Site, error) {
-	rows, err := db.Query("SELECT site, password, notes FROM vault WHERE user_id = ?", userId)
+	rows, err := db.Query("SELECT id, site, password, notes FROM vault WHERE user_id = ?", userId)
 	if err != nil {
 		log.Fatalf("Error quering data from sql table: %v", err)
 	}
@@ -30,7 +31,7 @@ func GetSiteData(db *sql.DB, userId int) ([]Site, error) {
 	for rows.Next() {
 		newSite := Site{}
 
-		err = rows.Scan(&newSite.Name, &newSite.Password, &newSite.Notes)
+		err = rows.Scan(&newSite.ID, &newSite.Name, &newSite.Password, &newSite.Notes)
 		if err != nil {
 			log.Fatalf("Error scanning data: %v", err)
 		}
@@ -64,6 +65,15 @@ func InsertSiteData(db *sql.DB, userId int, username, password, notes string) er
 		}
 		return err
 	}
+	return nil
+}
+
+func DeleteData(db *sql.DB, userId int, id string) error {
+	_, err := db.Exec("DELETE FROM vault WHERE user_id = ? AND id = ?", userId, id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
