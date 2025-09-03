@@ -321,3 +321,26 @@ button[type="submit"]:hover {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input[type="password"] {
+    width: 100%;
+    padding-right: 36px;
+    box-sizing: border-box;
+}
+
+.password-wrapper .generate-icon {
+    position: absolute;
+    right: 5px;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    pointer-events: auto;
+}
+

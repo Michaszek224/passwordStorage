@@ -20,7 +20,14 @@
             <h3 class="form-title">Add New Site:</h3>
             <form action="/vault/addSite" method="post" class="add-form">
                 <input type="text" name="site" placeholder="Site">
-                <input type="password" name="password" placeholder="Password">
+
+                <div class="password-wrapper">
+                    <input type="password" name="password" placeholder="Password">
+                    <a href="/login">
+                        <img src="/static/images/create_logo.png" alt="Generate Password" class="generate-icon">
+                    </a>
+                </div>
+                
                 <input type="text" name="notes" placeholder="Notes">
                 <button type="submit" class="add-button">Add New Site</button>
             </form>
