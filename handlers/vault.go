@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"passwordStorage/database"
@@ -16,7 +15,10 @@ func vaultHandler(ctx *gin.Context, db *sql.DB) {
 	user := session.Get("user")
 	userId := session.Get("userId").(int)
 
-	siteData := database.GetSiteData(db, userId)
+	siteData, err := database.GetSiteData(db, userId)
+	if err != nil {
+		log.Fatalf("Eror fetching data from db: %v", err)
+	}
 
 	ctx.HTML(http.StatusOK, "vault.html", gin.H{
 		"user":     user,
@@ -33,9 +35,11 @@ func addNewSite(ctx *gin.Context, db *sql.DB) {
 	user := sessions.Get("user")
 	userId := sessions.Get("userId").(int)
 
-	siteData := database.GetSiteData(db, userId)
-	fmt.Println(siteData)
-	err := database.InsertSiteData(db, userId, site, password, notes)
+	siteData, err := database.GetSiteData(db, userId)
+	if err != nil {
+		log.Fatalf("Error fetching data from db: %v", err)
+	}
+	err = database.InsertSiteData(db, userId, site, password, notes)
 	if err != nil {
 		log.Printf("Error inserting new site: %v", err)
 		ctx.HTML(http.StatusBadRequest, "vault.html", gin.H{
