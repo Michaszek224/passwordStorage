@@ -22,12 +22,13 @@
                 <input type="text" name="site" placeholder="Site">
 
                 <div class="password-wrapper">
-                    <input type="password" name="password" placeholder="Password" value="{{.generatedPassword}}">
-                    <a href="/vault/generatePassword" class="generate-icon-container">
+                    <input type="password" name="password" placeholder="Password" value="{{.generatedPassword}}" id="password-input">
+                    <a href="#" hx-get="/vault/generatePassword" hx-target="#password-input" hx-swap="outerHTML" class="generate-icon-container">
                         <img src="/static/images/create_logo.png" alt="Generate Password" class="generate-icon">
                         <span class="tooltip-text">Generate Password</span>
                     </a>
                 </div>
+
 
                 <input type="text" name="notes" placeholder="Notes">
                 <button type="submit" class="add-button">Add New Site</button>

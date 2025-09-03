@@ -133,18 +133,6 @@ func generatePassword(ctx *gin.Context, db *sql.DB) {
 	generatePassword := string(passwordRunes)
 	fmt.Printf("Password generated: %v\n", string(generatePassword))
 
-	session := sessions.Default(ctx)
-	user := session.Get("user")
-	userId := session.Get("userId").(int)
-
-	siteData, err := database.GetSiteData(db, userId)
-	if err != nil {
-		log.Fatalf("Eror fetching data from db: %v", err)
-	}
-
-	ctx.HTML(http.StatusOK, "vault.html", gin.H{
-		"user":              user,
-		"siteData":          siteData,
-		"generatedPassword": generatePassword,
-	})
+	ctx.Header("Content-Type", "text/html")
+	ctx.String(http.StatusOK, `<input type="password" name="password" placeholder="Password" id="password-input" value="%s">`, generatePassword)
 }
