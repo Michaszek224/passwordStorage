@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"crypto/rand"
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"passwordStorage/database"
@@ -112,4 +114,37 @@ func copyPassword(ctx *gin.Context, db *sql.DB) {
 		return
 	}
 	ctx.String(http.StatusOK, password)
+}
+
+func generatePassword(ctx *gin.Context, db *sql.DB) {
+	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+"
+	passwordLength := 32
+	passwordBytes := make([]byte, passwordLength)
+
+	_, err := rand.Read(passwordBytes)
+	if err != nil {
+		return
+	}
+
+	passwordRunes := make([]rune, passwordLength)
+	for i, b := range passwordBytes {
+		passwordRunes[i] = rune(charset[int(b)%len(charset)])
+	}
+	generatePassword := string(passwordRunes)
+	fmt.Printf("Password generated: %v\n", string(generatePassword))
+
+	session := sessions.Default(ctx)
+	user := session.Get("user")
+	userId := session.Get("userId").(int)
+
+	siteData, err := database.GetSiteData(db, userId)
+	if err != nil {
+		log.Fatalf("Eror fetching data from db: %v", err)
+	}
+
+	ctx.HTML(http.StatusOK, "vault.html", gin.H{
+		"user":              user,
+		"siteData":          siteData,
+		"generatedPassword": generatePassword,
+	})
 }
