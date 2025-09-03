@@ -35,9 +35,10 @@
                 <li class="site-item">
                     <span class="site-info">
                         <p class="site-name">{{.Name}}</p>
-                        <p class="site-details">Password: {{.Password}} | Notes: {{.Notes}}</p>
+                        <p class="site-details">Notes: {{.Notes}}</p>
                     </span>
                     <div class="action-buttons">
+                        <button class="copy-password-button" hx-post="">Copy Passoword</button>
                         <button class="edit-button" hx-post="/vault/editSite/{{.ID}}" hx-target="closest li">Edit</button>
                         <button class="delete-button" hx-post="/vault/deleteSite/{{.ID}}" hx-target="closest li" hx-swap="delete">Delete</button>
                     </div>

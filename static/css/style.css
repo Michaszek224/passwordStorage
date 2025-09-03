@@ -217,7 +217,7 @@ button[type="submit"]:hover {
     gap: 8px;
 }
 
-.edit-button, .delete-button {
+.edit-button, .delete-button, .copy-password-button{
     padding: 8px 12px;
     border-radius: 5px;
     border: none;
@@ -242,4 +242,12 @@ button[type="submit"]:hover {
 
 .delete-button:hover {
     background-color: #e05e55;
+}
+
+.copy-password-button{
+    background-color: #e05e1d;
+}
+
+.copy-password-button:hover{
+    background-color: #db5816;
 }
