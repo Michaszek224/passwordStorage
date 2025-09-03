@@ -12,3 +12,6 @@ add login via github/google
 when editing autofill data 
 let use autogenerate password with options
 use https instead of http
+
+fix error:
+site data dont "stick" to background box
