@@ -77,6 +77,32 @@ func DeleteData(db *sql.DB, userId int, id string) error {
 	return nil
 }
 
+func EditData(db *sql.DB, userId int, id, password, site, notes string) error {
+	if site == "" || password == "" {
+		return errors.New("site name and password cannot be empty")
+	}
+	var exists bool
+	err := db.QueryRow("SELECT EXISTS(SELECT 1 FROM vault WHERE user_id = ? AND site = ? AND id != ?)", userId, site, id).Scan(&exists)
+	if err != nil {
+		return err
+	}
+
+	if exists {
+		return errors.New("Site already exisists")
+	}
+
+	passwordEcrypted, err := passwordEncrypt(password)
+	if err != nil {
+		return err
+	}
+	_, err = db.Exec("UPDATE vault SET site = ?, password = ?, notes = ? WHERE user_id = ? AND id = ?", site, passwordEcrypted, notes, userId, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func passwordEncrypt(password string) (string, error) {
 	key := os.Getenv("VAULT_KEY")
 

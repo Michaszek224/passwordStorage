@@ -53,7 +53,36 @@ func addSite(ctx *gin.Context, db *sql.DB) {
 	ctx.Redirect(http.StatusSeeOther, "/vault")
 }
 
-func editSite(ctx *gin.Context, db *sql.DB) {
+func editSite(ctx *gin.Context) {
+	id := ctx.Param("id")
+	ctx.HTML(http.StatusOK, "edit.html", gin.H{
+		"id": id,
+	})
+}
+
+func editSiteConfirm(ctx *gin.Context, db *sql.DB) {
+	sessions := sessions.Default(ctx)
+	userId := sessions.Get("userId").(int)
+	id := ctx.Param("id")
+
+	siteData, err := database.GetSiteData(db, userId)
+	if err != nil {
+		log.Fatalf("error getting site data: %v", err)
+	}
+
+	password := ctx.PostForm("password")
+	siteName := ctx.PostForm("site")
+	notes := ctx.PostForm("notes")
+
+	err = database.EditData(db, userId, id, password, siteName, notes)
+	if err != nil {
+		user := sessions.Get("user")
+		ctx.HTML(http.StatusBadRequest, "vault.html", gin.H{
+			"user":     user,
+			"siteData": siteData,
+			"error":    err,
+		})
+	}
 
 	ctx.Redirect(http.StatusSeeOther, "/vault")
 }

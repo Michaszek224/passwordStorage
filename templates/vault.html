@@ -27,7 +27,7 @@
         {{range .siteData}}
         <li>
             site: {{.Name}} | password: {{.Password}} | notes: {{.Notes}}
-            <button hx-post="/vault/editSite" hx-target="body">Edit</button>
+            <button hx-post="/vault/editSite/{{.ID}}" hx-target="closest li" >Edit</button>
             <button hx-post="/vault/deleteSite/{{.ID}}" hx-target="closest li" hx-swap="delete">Delete</button>
         </li>
         {{end}}
