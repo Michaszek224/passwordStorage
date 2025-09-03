@@ -8,4 +8,5 @@ crud for sites informations -> done
 make some cool css
 make passwords hidden by default
 let use autogenerate password with options
+add login via github/google
 use https instead of http
