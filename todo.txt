@@ -3,5 +3,8 @@ add authenication with gin -> done
 add sessions to -> done
 add another db table with logins and password for each user -> done
 add encryption for passwords -> change password encryption to be able to undo -> done
-crud for sites informations 
+crud for sites informations -> done
+
+make some cool css
+make passwords hidden by default
 use https instead of http
