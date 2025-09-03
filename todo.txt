@@ -14,4 +14,4 @@ let use autogenerate password with options
 use https instead of http
 
 fix error:
-site data dont "stick" to background box
+site data dont "stick" to background box -> fixed
