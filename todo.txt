@@ -12,6 +12,7 @@ let use autogenerate password -> done
 
 add login via github/google 
 use https instead of http
+change db to posgresql
 
 fix error:
 site data dont "stick" to background box -> fixed
