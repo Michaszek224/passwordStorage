@@ -16,7 +16,7 @@ func storeOptionsConfig(store cookie.Store) {
 	store.Options(sessions.Options{
 		Path:     "/",
 		Domain:   "",
-		MaxAge:   300,
+		MaxAge:   0,
 		Secure:   false, // change in produciton
 		HttpOnly: true,
 		SameSite: http.SameSiteStrictMode,

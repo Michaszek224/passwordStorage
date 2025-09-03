@@ -29,7 +29,7 @@ func registerHandlerPost(ctx *gin.Context, db *sql.DB) {
 		return
 	}
 
-	ctx.Redirect(http.StatusSeeOther, "/")
+	ctx.Redirect(http.StatusSeeOther, "/login")
 }
 
 func loginHandlerGet(ctx *gin.Context) {

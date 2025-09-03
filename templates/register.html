@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <title>Password Manager</title>
 </head>
+
 <body>
+    <div id="login-container">
+        <div id="login-header">
+            <h2>Register</h2>
+        </div>
 
-    <h1>Register Template</h1>
-    {{ if .error }}
-    <p>{{ .error}}</p>
-    {{ end }}
+        <div id="login-form-div">
+            <form action="/register" method="POST">
+                <input type="text" name="username" placeholder="Nickname"><br>
+                <input type="password" name="password" placeholder="Password"><br>
+                <button type="submit">Register</button>
+            </form>
+        </div>
 
-    <form action="/register" method="POST">
-        <input type="text" name="username" placeholder="Nickname"><br>
-        <input type="password" name="password" placeholder="Password"><br>
-        <button type="submit">Submit Data</button>
-    </form>
+        <div id="error-div">
+            {{ if .error }}
+            <p>{{ .error}}</p>
+            {{ end }}
+        </div>
 
-    <a href="/">Login to already existing account</a>
+        <div id="change-site-div">
+            <a href="/login">Login To Already Existing Account</a>
+        </div>
+
+        <div id="social-login-div">
+            <button class="social-button github">
+                <img src="/static/images/github_logo.png" alt="GitHub Logo"> GitHub
+            </button>
+            <button class="social-button google">
+                <img src="/static/images/google_logo.png" alt="Google Logo"> Google
+            </button>
+        </div>
+    </div>
 </body>
+
 </html>

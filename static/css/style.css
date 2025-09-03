@@ -1,3 +1,233 @@
-body{
-    background-color: lightgray;
+body {
+    background-color: #333; /* Darker background */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#login-container {
+    background-color: #222; /* Slightly lighter dark for the container */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* More prominent shadow */
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: #eee; /* Light text for dark background */
+}
+
+#login-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f7b731; /* Bright orange for the header */
+}
+
+#login-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+#login-form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"], 
+input[type="password"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #555; /* Darker border for inputs */
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    background-color: #444; /* Darker input background */
+    color: #eee; /* Light text in inputs */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #f7b731; /* Orange border on focus */
+}
+
+button[type="submit"] {
+    width: calc(100% - 0px);
+    padding: 12px;
+    background-color: #f7b731; /* Main orange button */
+    color: #222; /* Dark text on orange button */
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e0a320; /* Darker orange on hover */
+}
+
+#error-div {
+    margin-top: 10px;
+    color: #ff6f61; /* A slightly more orange-red for errors */
+    font-weight: bold;
+    text-align: center;
+}
+
+#change-site-div {
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#change-site-div a {
+    color: #f7b731; /* Orange for links */
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+#change-site-div a:hover {
+    text-decoration: underline;
+    color: #e0a320; /* Darker orange on hover */
+}
+
+#social-login-div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #444; /* Darker separator line */
+}
+
+.social-button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #555; /* Darker border */
+    background-color: #444; /* Darker background for social buttons */
+    color: #eee; /* Light text for social buttons */
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.social-button:hover {
+    background-color: #555; /* Slightly lighter dark on hover */
+    border-color: #777;
+}
+
+.social-button img {
+    width: 20px;
+    height: 20px;
+    filter: invert(0.9); /* Invert colors for logos if they are dark to make them visible on a dark background */
+}
+
+.social-button.github {
+    color: #eee; /* White/light gray for GitHub text on dark */
+    border-color: #eee;
+}
+
+.social-button.github:hover {
+    background-color: #eee; /* Invert colors on hover */
+    color: #222;
+}
+
+.social-button.google {
+    color: #f7b731; /* Use orange for Google button text */
+    border-color: #f7b731;
+}
+
+.social-button.google:hover {
+    background-color: #f7b731; /* Orange background on hover */
+    color: #222;
+}
+
+/* Style for the titles of the new sections */
+.form-title, .list-title {
+    font-size: 20px;
+    color: #f7b731; /* Orange color from your palette */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Style for the list section */
+.site-list-section {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #444; /* Separator line */
+}
+
+.site-list {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.site-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Darker background for each item */
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #555;
+}
+
+.site-item .site-info {
+    flex-grow: 1; /* Allows this div to take up available space */
+}
+
+.site-item .site-name {
+    font-weight: bold;
+    color: #f7b731;
+    margin: 0;
+}
+
+.site-item .site-details {
+    font-size: 12px;
+    color: #aaa;
+    margin: 5px 0 0;
+}
+
+.site-item .action-buttons {
+    display: flex;
+    gap: 8px; /* Space between buttons */
+}
+
+.edit-button, .delete-button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button {
+    background-color: #f7b731; /* Orange color */
+    color: #222;
+}
+
+.edit-button:hover {
+    background-color: #e0a320; /* Darker orange */
+}
+
+.delete-button {
+    background-color: #ff6f61; /* Orange-red for delete */
+    color: #222;
+}
+
+.delete-button:hover {
+    background-color: #e05e55; /* Darker orange-red */
 }

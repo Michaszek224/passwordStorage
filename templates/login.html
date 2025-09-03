@@ -7,16 +7,37 @@
     <title>Password Manager</title>
 </head>
 <body>
-    {{ if .error }}
-    <p>{{ .error}}</p>
-    {{ end }}
+    <div id="login-container">
+        <div id="login-header">
+            <h2>Login</h2> 
+        </div>
 
-   <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="Nickname"><br>
-        <input type="password" name="password" placeholder="Password"><br>
-        <button type="submit">login</button>
-    </form>
+        <div id="login-form-div">
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Nickname"><br>
+                <input type="password" name="password" placeholder="Password"><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        
+        <div id="error-div">
+            {{ if .error }}
+            <p>{{ .error}}</p>
+            {{ end }}
+        </div>
 
-    <a href="/register">Create New Account</a>
+        <div id="change-site-div">
+            <a href="/register">Create New Account</a>
+        </div>
+
+        <div id="social-login-div">
+            <button class="social-button github">
+                <img src="/static/images/github_logo.png" alt="GitHub Logo"> GitHub
+            </button>
+            <button class="social-button google">
+                <img src="/static/images/google_logo.png" alt="Google Logo"> Google
+            </button>
+        </div>
+    </div>
 </body>
 </html>
