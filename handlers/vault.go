@@ -26,7 +26,7 @@ func vaultHandler(ctx *gin.Context, db *sql.DB) {
 	})
 }
 
-func addNewSite(ctx *gin.Context, db *sql.DB) {
+func addSite(ctx *gin.Context, db *sql.DB) {
 	site := ctx.PostForm("site")
 	password := ctx.PostForm("password")
 	notes := ctx.PostForm("notes")
@@ -50,5 +50,13 @@ func addNewSite(ctx *gin.Context, db *sql.DB) {
 		return
 	}
 
+	ctx.Redirect(http.StatusSeeOther, "/vault")
+}
+
+func editSite(ctx *gin.Context, db *sql.DB) {
+	ctx.Redirect(http.StatusSeeOther, "/vault")
+}
+
+func deleteSite(ctx *gin.Context, db *sql.DB) {
 	ctx.Redirect(http.StatusSeeOther, "/vault")
 }
