@@ -1,5 +1,5 @@
 body {
-    background-color: #333; /* Darker background */
+    background-color: #333;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -9,21 +9,35 @@ body {
 }
 
 #login-container {
-    background-color: #222; /* Slightly lighter dark for the container */
+    background-color: #222;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* More prominent shadow */
-    width: 350px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 30%;
+    height: 20%;
     display: flex;
     flex-direction: column;
     position: relative;
-    color: #eee; /* Light text for dark background */
+    color: #eee;
+}
+
+#vault-container {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: #eee;
 }
 
 #login-header {
     text-align: center;
     margin-bottom: 20px;
-    color: #f7b731; /* Bright orange for the header */
+    color: #f7b731;
 }
 
 #login-header h2 {
@@ -43,24 +57,24 @@ input[type="password"] {
     width: calc(100% - 24px);
     padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #555; /* Darker border for inputs */
+    border: 1px solid #555;
     border-radius: 5px;
     font-size: 16px;
     outline: none;
-    background-color: #444; /* Darker input background */
-    color: #eee; /* Light text in inputs */
+    background-color: #444;
+    color: #eee;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    border-color: #f7b731; /* Orange border on focus */
+    border-color: #f7b731;
 }
 
 button[type="submit"] {
     width: calc(100% - 0px);
     padding: 12px;
-    background-color: #f7b731; /* Main orange button */
-    color: #222; /* Dark text on orange button */
+    background-color: #f7b731;
+    color: #222;
     border: none;
     border-radius: 5px;
     font-size: 18px;
@@ -69,12 +83,12 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #e0a320; /* Darker orange on hover */
+    background-color: #e0a320;
 }
 
 #error-div {
     margin-top: 10px;
-    color: #ff6f61; /* A slightly more orange-red for errors */
+    color: #ff6f61;
     font-weight: bold;
     text-align: center;
 }
@@ -86,7 +100,7 @@ button[type="submit"]:hover {
 }
 
 #change-site-div a {
-    color: #f7b731; /* Orange for links */
+    color: #f7b731;
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
@@ -94,7 +108,7 @@ button[type="submit"]:hover {
 
 #change-site-div a:hover {
     text-decoration: underline;
-    color: #e0a320; /* Darker orange on hover */
+    color: #e0a320;
 }
 
 #social-login-div {
@@ -103,15 +117,15 @@ button[type="submit"]:hover {
     gap: 10px;
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid #444; /* Darker separator line */
+    border-top: 1px solid #444;
 }
 
 .social-button {
     padding: 8px 12px;
     border-radius: 5px;
-    border: 1px solid #555; /* Darker border */
-    background-color: #444; /* Darker background for social buttons */
-    color: #eee; /* Light text for social buttons */
+    border: 1px solid #555;
+    background-color: #444;
+    color: #eee;
     font-size: 14px;
     cursor: pointer;
     display: flex;
@@ -121,54 +135,52 @@ button[type="submit"]:hover {
 }
 
 .social-button:hover {
-    background-color: #555; /* Slightly lighter dark on hover */
+    background-color: #555;
     border-color: #777;
 }
 
 .social-button img {
     width: 20px;
     height: 20px;
-    filter: invert(0.9); /* Invert colors for logos if they are dark to make them visible on a dark background */
+    filter: invert(0.9);
 }
 
 .social-button.github {
-    color: #eee; /* White/light gray for GitHub text on dark */
+    color: #eee;
     border-color: #eee;
 }
 
 .social-button.github:hover {
-    background-color: #eee; /* Invert colors on hover */
+    background-color: #eee;
     color: #222;
 }
 
 .social-button.google {
-    color: #f7b731; /* Use orange for Google button text */
+    color: #f7b731;
     border-color: #f7b731;
 }
 
 .social-button.google:hover {
-    background-color: #f7b731; /* Orange background on hover */
+    background-color: #f7b731;
     color: #222;
 }
 
-/* Style for the titles of the new sections */
 .form-title, .list-title {
     font-size: 20px;
-    color: #f7b731; /* Orange color from your palette */
+    color: #f7b731;
     margin-bottom: 15px;
     text-align: center;
 }
 
-/* Style for the list section */
 .site-list-section {
     width: 100%;
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid #444; /* Separator line */
+    border-top: 1px solid #444;
 }
 
 .site-list {
-    list-style: none; /* Remove bullet points */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
@@ -177,7 +189,7 @@ button[type="submit"]:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333; /* Darker background for each item */
+    background-color: #333;
     padding: 10px 15px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -185,7 +197,7 @@ button[type="submit"]:hover {
 }
 
 .site-item .site-info {
-    flex-grow: 1; /* Allows this div to take up available space */
+    flex-grow: 1;
 }
 
 .site-item .site-name {
@@ -202,7 +214,7 @@ button[type="submit"]:hover {
 
 .site-item .action-buttons {
     display: flex;
-    gap: 8px; /* Space between buttons */
+    gap: 8px;
 }
 
 .edit-button, .delete-button {
@@ -215,19 +227,20 @@ button[type="submit"]:hover {
 }
 
 .edit-button {
-    background-color: #f7b731; /* Orange color */
+    background-color: #f7b731;
     color: #222;
 }
 
 .edit-button:hover {
-    background-color: #e0a320; /* Darker orange */
+    background-color: #e0a320;
 }
 
 .delete-button {
-    background-color: #ff6f61; /* Orange-red for delete */
+    background-color: #ff6f61;
     color: #222;
 }
 
 .delete-button:hover {
-    background-color: #e05e55; /* Darker orange-red */
+    background-color: #e05e55;
 }
+
