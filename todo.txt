@@ -4,9 +4,9 @@ add sessions to -> done
 add another db table with logins and password for each user -> done
 add encryption for passwords -> change password encryption to be able to undo -> done
 crud for sites informations -> done
+make some cool css -> done
 
-make some cool css
+add login via github/google
 make passwords hidden by default
 let use autogenerate password with options
-add login via github/google
 use https instead of http
