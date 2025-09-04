@@ -19,7 +19,7 @@ func storeOptionsConfig(store cookie.Store) {
 		MaxAge:   180,
 		Secure:   false, // change in produciton
 		HttpOnly: true,
-		SameSite: http.SameSiteStrictMode,
+		SameSite: http.SameSiteLaxMode,
 	})
 }
 
@@ -43,6 +43,13 @@ func RoutesHandler(db *sql.DB) *gin.Engine {
 	router.GET("/", homeHandlerGet)
 	router.GET("/register", registerHandlerGet)
 	router.GET("/login", loginHandlerGet)
+
+	//Oauth2
+	router.GET("/auth/github/login", githubLoginHandler)
+	router.GET("/auth/github/callback", func(ctx *gin.Context) { githubCallbackHandler(ctx, db) })
+
+	router.GET("/auth/google/login", googleLoginHandler)
+	router.GET("/auth/google/callback", func(ctx *gin.Context) { googleCallbackHandler(ctx, db) })
 
 	//protected rotues
 	authorized := router.Group("/vault")

@@ -15,7 +15,7 @@ import (
 func vaultHandler(ctx *gin.Context, db *sql.DB) {
 	session := sessions.Default(ctx)
 	user := session.Get("user")
-	userId := session.Get("userId").(int)
+	userId := session.Get("userId").(int64)
 
 	siteData, err := database.GetSiteData(db, userId)
 	if err != nil {
@@ -35,7 +35,7 @@ func addSite(ctx *gin.Context, db *sql.DB) {
 
 	sessions := sessions.Default(ctx)
 	user := sessions.Get("user")
-	userId := sessions.Get("userId").(int)
+	userId := sessions.Get("userId").(int64)
 
 	siteData, err := database.GetSiteData(db, userId)
 	if err != nil {
@@ -57,7 +57,7 @@ func addSite(ctx *gin.Context, db *sql.DB) {
 
 func editSite(ctx *gin.Context, db *sql.DB) {
 	sessions := sessions.Default(ctx)
-	userId := sessions.Get("userId").(int)
+	userId := sessions.Get("userId").(int64)
 
 	id := ctx.Param("id")
 
@@ -74,7 +74,7 @@ func editSite(ctx *gin.Context, db *sql.DB) {
 
 func editSiteConfirm(ctx *gin.Context, db *sql.DB) {
 	sessions := sessions.Default(ctx)
-	userId := sessions.Get("userId").(int)
+	userId := sessions.Get("userId").(int64)
 	id := ctx.Param("id")
 
 	siteData, err := database.GetSiteData(db, userId)

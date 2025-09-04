@@ -10,7 +10,7 @@ copy password button-> done
 when editing autofill data  -> done
 let use autogenerate password -> done
 
-add login via github/google 
+add login via github/google -> done with github/ google to do
 use https instead of http
 change db to posgresql
 

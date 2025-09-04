@@ -49,7 +49,7 @@ func InsertUser(username, password string, db *sql.DB) error {
 		return err
 	}
 
-	_, err = db.Exec(`INSERT INTO user(username, password) VALUES (?,?)`, username, hashedPassword)
+	_, err = db.Exec(`INSERT INTO user(username, password, provider) VALUES (?,?, 'local')`, username, hashedPassword)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
 			return errors.New("username already taken")

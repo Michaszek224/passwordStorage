@@ -21,7 +21,7 @@ type Site struct {
 	Notes    string
 }
 
-func GetSiteData(db *sql.DB, userId int) ([]Site, error) {
+func GetSiteData(db *sql.DB, userId int64) ([]Site, error) {
 	rows, err := db.Query("SELECT id, site, password, notes FROM vault WHERE user_id = ?", userId)
 	if err != nil {
 		log.Fatalf("Error quering data from sql table: %v", err)
@@ -50,7 +50,7 @@ func GetSiteData(db *sql.DB, userId int) ([]Site, error) {
 	return sites, nil
 }
 
-func GetSingleData(db *sql.DB, userId int, siteId string) (Site, error) {
+func GetSingleData(db *sql.DB, userId int64, siteId string) (Site, error) {
 	var newSite Site
 
 	err := db.QueryRow("SELECT site, password, notes FROM vault WHERE user_id = ? and id = ?", userId, siteId).Scan(&newSite.Name, &newSite.Password, &newSite.Notes)
@@ -66,7 +66,7 @@ func GetSingleData(db *sql.DB, userId int, siteId string) (Site, error) {
 
 }
 
-func InsertSiteData(db *sql.DB, userId int, username, password, notes string) error {
+func InsertSiteData(db *sql.DB, userId int64, username, password, notes string) error {
 	if username == "" || password == "" {
 		return errors.New("site and password cannot be empty")
 	}
@@ -94,7 +94,7 @@ func DeleteData(db *sql.DB, userId int, id string) error {
 	return nil
 }
 
-func EditData(db *sql.DB, userId int, id, password, site, notes string) error {
+func EditData(db *sql.DB, userId int64, id, password, site, notes string) error {
 	var exists bool
 	err := db.QueryRow("SELECT EXISTS(SELECT 1 FROM vault WHERE user_id = ? AND site = ? AND id != ?)", userId, site, id).Scan(&exists)
 	if err != nil {

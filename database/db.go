@@ -16,8 +16,12 @@ func DbInit() (*sql.DB, error) {
 	_, err = db.Exec(`
 		CREATE TABLE IF NOT EXISTS user(
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			username TEXT NOT NULL UNIQUE,
-			password TEXT NOT NULL
+			username TEXT UNIQUE,
+			password TEXT,
+			email TEXT,
+			provider TEXT,
+			provider_id TEXT,
+			UNIQUE(provider, provider_id)
 			);
 		`)
 	if err != nil {

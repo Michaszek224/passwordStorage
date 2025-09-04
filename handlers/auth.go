@@ -50,7 +50,7 @@ func loginHandlerPost(ctx *gin.Context, db *sql.DB) {
 	}
 	session := sessions.Default(ctx)
 	session.Set("user", username)
-	session.Set("userId", user.ID)
+	session.Set("userId", int64(user.ID))
 	session.Save()
 
 	ctx.Redirect(http.StatusSeeOther, "/vault")

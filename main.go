@@ -5,9 +5,18 @@ import (
 	"log"
 	"passwordStorage/database"
 	"passwordStorage/handlers"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Println(".env file not found or failed to load")
+	}
+
+	handlers.InitOAuthConfigs()
+
 	db, err := database.DbInit()
 	if err != nil {
 		log.Fatalf("Failed to init DB: %v", err)
