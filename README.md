@@ -30,10 +30,11 @@ This project demonstrates secure user authentication, session handling, and CRUD
 
 ## ⚙️ Tech Stack
 - Backend: Go + Gin framework
-- Database: SQLite (via database/sql)
+- Database: SQLite (via database/sql) (in future transfer to docker)
 - Session Handling: gin-contrib/sessions
 - Templating: Go HTML templates
 - Frontend: HTML, CSS
+- Authorization: OAuth2
 
 ## 📌 To Do
 
